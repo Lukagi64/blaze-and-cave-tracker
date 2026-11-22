@@ -1,0 +1,15 @@
+services:
+  web-api:
+    build: .
+    container_name: blazeandcave-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_PATH=/app/data/database.sqlite
+      - API_SECRET_TOKEN=${API_SECRET_TOKEN}
+      - TWITCH_CLIENT_ID=${TWITCH_CLIENT_ID}
+      - TWITCH_CLIENT_SECRET=${TWITCH_CLIENT_SECRET}
+    volumes:
+      - ./data:/app/data

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - Blaze&Cave Tracker</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header>
+    <strong>Blaze&Cave Tracker</strong>
+    <nav>
+      <a href="./index.html" class="active">Accueil</a>
+      <a href="./streamers.html">Streamers</a>
+      <a href="./advancements.html">Advancements</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Avancement global du serveur</h1>
+
+    <!-- Barre de progression communautaire -->
+    <section class="hero-progress">
+      <div class="progress-header">
+        <span id="global-progress-text">Calcul de la progression...</span>
+        <strong id="global-progress-percent">0 %</strong>
+      </div>
+      <div class="progress-bar-bg">
+        <div id="global-progress-bar" class="progress-bar-fill"></div>
+      </div>
+    </section>
+
+    <div class="home-grid">
+      <!-- Colonne gauche : Podium -->
+      <section class="panel-card">
+        <h2>Top Joueurs</h2>
+        <ul id="podium-list" class="podium-list">
+          <li>Chargement du classement...</li>
+        </ul>
+      </section>
+
+      <!-- Colonne droite : 10 derniers advancements -->
+      <section class="panel-card">
+        <h2>10 derniers advancements débloqués</h2>
+        <ul id="recent-list" class="recent-list">
+          <li>Chargement de l'activité...</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <a href="/mentions.html">Mentions légales</a>
+  </footer>
+
+  <script src="/js/home.js"></script>
+</body>
+</html>
