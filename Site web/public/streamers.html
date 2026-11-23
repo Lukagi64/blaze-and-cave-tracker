@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamers — Blaze & Cave's Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <span class="logo-icon">⛏️</span>
+                Blaze & Cave's Tracker
+            </h1>
+            <nav class="nav">
+                <a href="/index.html" class="nav-link">Accueil</a>
+                <a href="/streamers.html" class="nav-link active">Streamers</a>
+                <a href="/advancements.html" class="nav-link">Advancements</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <header class="page-header">
+                <h1>Streamers</h1>
+                <p>Liste des participants — Statut live et lien vers leur chaîne</p>
+            </header>
+
+            <section class="streamers-grid" id="streamersGrid">
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V19M17 12a3 3 0 0 1 0 6M17 12a3 3 0 0 0 0-6M9 12a3 3 0 0 1 0 6M9 12a3 3 0 0 0 0-6M23 9V5a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v4M12 3v4"/>
+                    </svg>
+                    <h2>Chargement...</h2>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Blaze & Cave's Advancements Pack Tracker — Made for Omeega's Community</p>
+        </div>
+    </footer>
+
+    <script src="/streamers.js"></script>
+</body>
+</html>

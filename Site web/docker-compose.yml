@@ -1,48 +1,12 @@
-# ============================================
-# docker-compose.yml - Blaze & Cave Tracker
-# Déploiement simple et robuste
-# ============================================
+version: '3.8'
 
 services:
-  web-api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      # target: runner  # Décommenter pour builder seulement l'image finale
-    container_name: blazeandcave-web
-    restart: unless-stopped
+  app:
+    build: .
     ports:
       - "3000:3000"
-    environment:
-      - PORT=3000
-      - DB_PATH=/app/data/database.sqlite
-      - NODE_ENV=production
-      # Variables sensibles : définies via .env ou secrets Docker
-      - API_SECRET_TOKEN=${API_SECRET_TOKEN}
-      - TWITCH_CLIENT_ID=${TWITCH_CLIENT_ID}
-      - TWITCH_CLIENT_SECRET=${TWITCH_CLIENT_SECRET}
     volumes:
-      # Persistance de la base SQLite sur l'hôte
       - ./data:/app/data
-      # Optionnel : logs si vous voulez les persister
-      # - ./logs:/app/logs
-    healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/health', (res) => {process.exit(res.statusCode === 200 ? 0 : 1)})"]
-      interval: 30s
-      timeout: 5s
-      start_period: 15s
-      retries: 3
-    # Limites de ressources (optionnel mais recommandé en prod)
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-          cpus: '0.5'
-        reservations:
-          memory: 256M
-          cpus: '0.25'
-
-# Réseau isolé (optionnel, Docker le crée automatiquement)
-# networks:
-#   default:
-#     name: blazeandcave-network
+    env_file:
+      - .env
+    restart: unless-stopped

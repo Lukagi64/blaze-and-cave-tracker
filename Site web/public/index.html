@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blaze & Cave's Advancements Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <span class="logo-icon">⛏️</span>
+                Blaze & Cave's Tracker
+            </h1>
+            <nav class="nav">
+                <a href="/index.html" class="nav-link active">Accueil</a>
+                <a href="/streamers.html" class="nav-link">Streamers</a>
+                <a href="/advancements.html" class="nav-link">Advancements</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="bento-grid">
+                <article class="bento-card bento-card--large progress-card">
+                    <h2>Progression Globale</h2>
+                    <div class="progress-ring">
+                        <svg class="progress-svg" viewBox="0 0 120 120">
+                            <circle class="progress-bg" cx="60" cy="60" r="54"></circle>
+                            <circle class="progress-fill" cx="60" cy="60" r="54"
+                                stroke-dasharray="339.3" stroke-dashoffset="339.3"></circle>
+                        </svg>
+                        <div class="progress-text">
+                            <span class="progress-percent" id="progressPercent">0%</span>
+                            <span class="progress-fraction" id="progressFraction">0 / 0</span>
+                        </div>
+                    </div>
+                    <select id="playerSelect" class="player-select">
+                        <option value="">Chargement...</option>
+                    </select>
+                </article>
+
+                <article class="bento-card bento-card--medium recent-card">
+                    <h2>Derniers Advancements</h2>
+                    <ul class="recent-list" id="recentList">
+                        <li class="recent-empty">Chargement...</li>
+                    </ul>
+                </article>
+
+                <article class="bento-card bento-card--medium stream-card">
+                    <h2>Omeega en Live</h2>
+                    <div id="streamContainer">
+                        <div class="stream-offline">
+                            <p>Vérification du statut...</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bento-card bento-card--small stats-card">
+                    <h2>Stats Rapides</h2>
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <span class="stat-value" id="totalPlayers">-</span>
+                            <span class="stat-label">Joueurs</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="totalAdvancements">-</span>
+                            <span class="stat-label">Advancements</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="totalCompleted">0</span>
+                            <span class="stat-label">Finis (joueur actuel)</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Blaze & Cave's Advancements Pack Tracker — Made for Omeega's Community</p>
+        </div>
+    </footer>
+
+    <script src="/app.js"></script>
+</body>
+</html>

@@ -1,70 +1,8 @@
-# ============================================
-# .dockerignore - Blaze & Cave Tracker
-# Exclut les fichiers inutiles du contexte de build Docker
-# ============================================
-
-# Dépendances (reconstruites dans le container)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Fichiers d'environnement (secrets !)
+node_modules
+data
 .env
-.env.local
-.env.*.local
-
-# Base de données SQLite (gérée via volume, pas dans l'image)
-data/
-*.sqlite
-*.sqlite-shm
-*.sqlite-wal
-
-# IDE / OS
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
-
-# Git
-.git/
-.gitignore
-
-# Documentation (pas nécessaire à l'exécution)
-README.md
-CLAUDE.md
-*.md
-
-# Tests / Coverage (si vous en ajoutez)
-coverage/
-.nyc_output/
-test/
-tests/
-*.test.js
-*.spec.js
-
-# Logs
-logs/
 *.log
-
-# Docker
-.dockerignore
-Dockerfile*
-docker-compose*.yml
-docker-compose*.yaml
-
-# Fichiers temporaires
-*.tmp
-*.temp
-temp/
-tmp/
-
-# TypeScript (si utilisé)
-*.tsbuildinfo
-
-# Backup
-*.bak
-*.backup
+.DS_Store
+.git
+.gitignore
+README.md

@@ -1,0 +1,131 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/styles.css"
+        ],
+        "createdAt": "2026-11-23T20:52:46.595Z",
+        "reason": "False positive: top accent bars on cards (completed/live state), not side tabs"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/404.html"
+        ],
+        "createdAt": "2026-11-23T20:59:57.182Z",
+        "reason": "404 page - muted text is intentional for secondary info, not primary content"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-23T21:01:59.526Z",
+        "reason": "Intentional: Inter chosen for readability, not AI default"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/index.html"
+        ],
+        "createdAt": "2026-11-23T21:02:05.290Z",
+        "reason": "False positive: top accent bars (completed/live state), not side tabs"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/streamers.html"
+        ],
+        "createdAt": "2026-11-23T21:02:11.907Z",
+        "reason": "False positive: top accent bars (live state), not side tabs"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/advancements.html"
+        ],
+        "createdAt": "2026-11-23T21:02:17.086Z",
+        "reason": "False positive: top accent bars (completed state), not side tabs"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/404.html"
+        ],
+        "createdAt": "2026-11-23T21:02:23.767Z",
+        "reason": "False positive: no accent bars in 404.html, likely cross-file detection"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/index.html"
+        ],
+        "createdAt": "2026-11-23T21:02:28.944Z",
+        "reason": "Muted text for secondary info, intentional design choice"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/streamers.html"
+        ],
+        "createdAt": "2026-11-23T21:02:34.869Z",
+        "reason": "Muted text for secondary info, intentional design choice"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/advancements.html"
+        ],
+        "createdAt": "2026-11-23T21:02:41.520Z",
+        "reason": "Muted text for secondary info, intentional design choice"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/index.html"
+        ],
+        "createdAt": "2026-11-23T21:28:15.500Z",
+        "reason": "False positive: pulse tied to genuine live status (is_live=true), not decorative"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/streamers.html"
+        ],
+        "createdAt": "2026-11-23T21:28:21.501Z",
+        "reason": "False positive: pulse tied to genuine live status (is_live=true), not decorative"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/advancements.html"
+        ],
+        "createdAt": "2026-11-23T21:28:26.734Z",
+        "reason": "False positive: pulse tied to genuine live status (is_live=true), not decorative"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "C:/Users/lukag/Documents/perso/Blaze and cave/Site web/public/404.html"
+        ],
+        "createdAt": "2026-11-23T21:28:31.889Z",
+        "reason": "False positive: no pulse animation in 404.html, cross-file detection"
+      }
+    ]
+  }
+}
