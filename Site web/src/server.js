@@ -1,7 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const crypto = require('crypto');
+const rateLimit = require('express-rate-limit');
 const db = require('./database');
+const requireAuth = require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -61,7 +64,15 @@ app.get('/api/players/:uuid/progress', (req, res) => {
     res.json({ progress, completed, total, percentage: total ? Math.round((completed / total) * 100) : 0 });
 });
 
-app.post('/api/advancements/:key/complete', (req, res) => {
+const advancementLimiter = rateLimit({
+    windowMs: 60000,
+    max: 60,
+    message: { error: 'Too many requests, try again later' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+app.post('/api/advancements/:key(*)/complete', requireAuth, advancementLimiter, (req, res) => {
     const { player_uuid } = req.body;
     if (!player_uuid) return res.status(400).json({ error: 'player_uuid required' });
     if (!db.getPlayerByUuid(player_uuid)) return res.status(404).json({ error: 'Player not found' });
@@ -71,7 +82,7 @@ app.post('/api/advancements/:key/complete', (req, res) => {
     res.json({ success: true });
 });
 
-app.delete('/api/advancements/:key/complete', (req, res) => {
+app.delete('/api/advancements/:key(*)/complete', requireAuth, advancementLimiter, (req, res) => {
     const { player_uuid } = req.body;
     if (!player_uuid) return res.status(400).json({ error: 'player_uuid required' });
     db.uncompleteAdvancement(player_uuid, req.params.key);
@@ -80,6 +91,20 @@ app.delete('/api/advancements/:key/complete', (req, res) => {
 
 app.get('/api/players', (req, res) => {
     res.json(db.getAllPlayers());
+});
+
+app.post('/api/players', (req, res) => {
+    const { uuid, pseudo, twitch_channel } = req.body;
+    if (!uuid || !pseudo) return res.status(400).json({ error: 'uuid and pseudo required' });
+    try {
+        db.createPlayer(uuid, pseudo, twitch_channel || '');
+        res.json({ success: true });
+    } catch (e) {
+        if (e.code === 'SQLITE_CONSTRAINT') {
+            return res.status(409).json({ error: 'Player already exists' });
+        }
+        throw e;
+    }
 });
 
 app.get('/api/players/live', (req, res) => {

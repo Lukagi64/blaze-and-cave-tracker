@@ -1,0 +1,22 @@
+# BACAPI Configuration
+# Configuration du plugin pour envoyer les advancements au site web
+
+# URL de base de l'API web (ex: http://localhost:3000 ou https://votresite.com)
+api:
+  base-url: "http://localhost:3000"
+  # Token d'authentification (doit correspondre à API_SECRET_TOKEN dans le .env du site)
+  auth-token: "cfe13ee14e1e85e08a76765141f5539508e4db6791353c0824e862b3512fa5d1"
+  # Timeout en millisecondes pour les requêtes HTTP
+  timeout-ms: 5000
+
+# Filtrage des advancements à envoyer
+# Namespace du datapack Blaze&Cave (ne pas modifier sauf si le datapack change)
+filter:
+  namespace: "blazeandcave"
+
+# Options de débogage
+debug:
+  # Loguer chaque advancement envoyé dans la console
+  log-advancements: true
+  # Loguer les erreurs HTTP détaillées
+  log-errors: true

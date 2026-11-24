@@ -6,6 +6,9 @@ node_modules/
 .env
 .env.local
 .env.*.local
+.env.development
+.env.preproduction
+.env.production
 **/.env
 
 # Database files
@@ -37,6 +40,17 @@ yarn-error.log*
 dist/
 build/
 *.tsbuildinfo
+
+# Gradle / Java
+.gradle/
+**/.gradle/
+**/build/
+!**/src/main/resources/build/
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
 
 # Docker
 .docker/

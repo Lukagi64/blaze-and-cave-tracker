@@ -1,0 +1,20 @@
+name: BACAPI
+version: '1.0-SNAPSHOT'
+
+main: lukagi.BACAPI
+api-version: '26.3'
+load: STARTUP
+
+authors: [ Lukagi ]
+
+commands:
+  bacapi:
+    description: Commandes de gestion du plugin BACAPI
+    usage: /bacapi <reload|status|test>
+    permission: bacapi.admin
+    permission-message: "§cPermission refusée : bacapi.admin requise"
+
+permissions:
+  bacapi.admin:
+    description: Accès aux commandes d'administration BACAPI
+    default: op
