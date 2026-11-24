@@ -52,6 +52,28 @@ build/
 *.ear
 hs_err_pid*
 
+# Minecraft server runtime (Gradle runServer task)
+BACAPI/run/
+**/run/
+**/world/
+**/plugins/
+**/logs/
+**/banned-*.json
+**/bukkit.yml
+**/spigot.yml
+**/server.properties
+**/commands.yml
+**/eula.txt
+**/help.yml
+**/permissions.yml
+**/usercache.json
+**/whitelist.json*
+**/ops.json
+**/paper-*.yml
+**/paper-world*.yml
+**/version_history.json
+**/datapacks/
+
 # Docker
 .docker/
 
