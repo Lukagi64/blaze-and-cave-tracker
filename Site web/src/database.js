@@ -115,6 +115,10 @@ function uncompleteAdvancement(playerUuid, advancementKey) {
     return db.prepare('DELETE FROM Progression WHERE player_uuid = ? AND advancement_key = ?').run(playerUuid, advancementKey);
 }
 
+function clearAllProgression() {
+    return db.prepare('DELETE FROM Progression').run();
+}
+
 function isAdvancementCompleted(playerUuid, advancementKey) {
     return db.prepare('SELECT 1 FROM Progression WHERE player_uuid = ? AND advancement_key = ?').get(playerUuid, advancementKey);
 }
@@ -137,5 +141,6 @@ module.exports = {
     getRecentAdvancements,
     completeAdvancement,
     uncompleteAdvancement,
-    isAdvancementCompleted
+    isAdvancementCompleted,
+    clearAllProgression
 };

@@ -10,7 +10,7 @@ authors: [ Lukagi ]
 commands:
   bacapi:
     description: Commandes de gestion du plugin BACAPI
-    usage: /bacapi <reload|status|test>
+    usage: /bacapi <reload|status|test|debug>
     permission: bacapi.admin
     permission-message: "§cPermission refusée : bacapi.admin requise"
 

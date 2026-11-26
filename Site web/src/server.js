@@ -12,6 +12,12 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Debug: log all requests
+app.use((req, res, next) => {
+    console.log(`[REQ] ${req.method} ${req.path}`);
+    next();
+});
+
 app.get('/api/home', (req, res) => {
     const players = db.getAllPlayers();
     const totalAdvancements = db.getTotalAdvancements();
@@ -87,6 +93,13 @@ app.delete('/api/advancements/:key(*)/complete', requireAuth, advancementLimiter
     if (!player_uuid) return res.status(400).json({ error: 'player_uuid required' });
     db.uncompleteAdvancement(player_uuid, req.params.key);
     res.json({ success: true });
+});
+
+// Debug: clear ALL progression data (admin only)
+app.delete('/api/debug/progression', requireAuth, (req, res) => {
+    console.log('[DEBUG] DELETE /api/debug/progression hit');
+    db.clearAllProgression();
+    res.json({ success: true, message: 'All progression data cleared' });
 });
 
 app.get('/api/players', (req, res) => {
