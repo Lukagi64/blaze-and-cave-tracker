@@ -38,22 +38,9 @@ function updatePlayerLiveStatus(uuid, liveData) {
     return db.prepare(`
         UPDATE Joueur SET
             is_live = ?,
-            live_title = ?,
-            live_game_name = ?,
-            live_viewer_count = ?,
-            live_thumbnail_url = ?,
-            live_started_at = ?,
             last_live_check = datetime('now')
         WHERE uuid = ?
-    `).run(
-        liveData.is_live ? 1 : 0,
-        liveData.title,
-        liveData.game_name,
-        liveData.viewer_count,
-        liveData.thumbnail_url,
-        liveData.started_at,
-        uuid
-    );
+    `).run(liveData.is_live ? 1 : 0, uuid);
 }
 
 function getLivePlayers() {
@@ -115,6 +102,10 @@ function uncompleteAdvancement(playerUuid, advancementKey) {
     return db.prepare('DELETE FROM Progression WHERE player_uuid = ? AND advancement_key = ?').run(playerUuid, advancementKey);
 }
 
+function clearAllProgression() {
+    return db.prepare('DELETE FROM Progression').run();
+}
+
 function isAdvancementCompleted(playerUuid, advancementKey) {
     return db.prepare('SELECT 1 FROM Progression WHERE player_uuid = ? AND advancement_key = ?').get(playerUuid, advancementKey);
 }
@@ -137,5 +128,6 @@ module.exports = {
     getRecentAdvancements,
     completeAdvancement,
     uncompleteAdvancement,
-    isAdvancementCompleted
+    isAdvancementCompleted,
+    clearAllProgression
 };

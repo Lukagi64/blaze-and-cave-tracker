@@ -12,6 +12,12 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Debug: log all requests
+app.use((req, res, next) => {
+    console.log(`[REQ] ${req.method} ${req.path}`);
+    next();
+});
+
 app.get('/api/home', (req, res) => {
     const players = db.getAllPlayers();
     const totalAdvancements = db.getTotalAdvancements();
@@ -89,6 +95,13 @@ app.delete('/api/advancements/:key(*)/complete', requireAuth, advancementLimiter
     res.json({ success: true });
 });
 
+// Debug: clear ALL progression data (admin only)
+app.delete('/api/debug/progression', requireAuth, (req, res) => {
+    console.log('[DEBUG] DELETE /api/debug/progression hit');
+    db.clearAllProgression();
+    res.json({ success: true, message: 'All progression data cleared' });
+});
+
 app.get('/api/players', (req, res) => {
     res.json(db.getAllPlayers());
 });
@@ -115,8 +128,9 @@ app.post('/api/players/:uuid/live', (req, res) => {
     const player = db.getPlayerByUuid(req.params.uuid);
     if (!player) return res.status(404).json({ error: 'Player not found' });
 
-    const liveData = req.body;
-    db.updatePlayerLiveStatus(req.params.uuid, liveData);
+    const { is_live } = req.body;
+    if (typeof is_live !== 'boolean') return res.status(400).json({ error: 'is_live (boolean) required' });
+    db.updatePlayerLiveStatus(req.params.uuid, { is_live });
     res.json({ success: true });
 });
 
