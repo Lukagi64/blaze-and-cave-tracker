@@ -23,19 +23,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             <article class="streamer-card ${p.is_live ? 'live' : ''}" data-uuid="${p.uuid}">
                 <a href="https://twitch.tv/${p.twitch_channel}" target="_blank" class="streamer-link-wrapper">
                     <div class="streamer-avatar">
-                        <img src="https://mc-heads.net/avatar/${p.uuid}/100" alt="${escapeHtml(p.pseudo)}" onerror="this.src='https://mc-heads.net/avatar/steve/100'">
-                        ${p.is_live ? '<span class="live-indicator"></span>' : ''}
+                        <img src="https://mc-heads.net/avatar/${p.uuid}/80" alt="${escapeHtml(p.pseudo)}" onerror="this.src='https://mc-heads.net/avatar/steve/80'">
+                        ${p.is_live ? '<span class="live-badge">LIVE</span>' : ''}
                     </div>
                     <div class="streamer-info">
                         <h2 class="streamer-name">${escapeHtml(p.pseudo)}</h2>
                         <span class="streamer-status ${p.is_live ? 'live' : 'offline'}">
-                            ${p.is_live ? 'EN LIVE' : 'HORS LIGNE'}
+                            ${p.is_live ? 'EN DIRECT' : `HORS LIGNE ${formatOfflineTime(p.last_live_check)}`}
                         </span>
-                        ${p.is_live && p.live_title ? `<p class="streamer-title">${escapeHtml(p.live_title)}</p>` : ''}
-                        ${p.is_live ? `<div class="streamer-meta">
-                            <span>${escapeHtml(p.live_game_name || 'Minecraft')}</span>
-                            <span>${p.live_viewer_count || 0} viewers</span>
-                        </div>` : ''}
                     </div>
                 </a>
             </article>
@@ -56,6 +51,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
     }
 });
+
+function formatOfflineTime(lastCheck) {
+    if (!lastCheck) return '';
+    const diff = Date.now() - new Date(lastCheck).getTime();
+    const hours = Math.floor(diff / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    if (hours > 0) return `depuis ${hours}h`;
+    if (minutes > 0) return `depuis ${minutes}min`;
+    return 'à l\'instant';
+}
 
 function escapeHtml(text) {
     const div = document.createElement('div');
