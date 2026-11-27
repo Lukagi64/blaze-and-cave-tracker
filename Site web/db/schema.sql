@@ -5,13 +5,7 @@ CREATE TABLE IF NOT EXISTS Joueur (
     pseudo TEXT NOT NULL UNIQUE,
     twitch_channel TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    -- Twitch live status (simple, no separate table)
     is_live BOOLEAN DEFAULT 0,
-    live_title TEXT,
-    live_game_name TEXT,
-    live_viewer_count INTEGER DEFAULT 0,
-    live_thumbnail_url TEXT,
-    live_started_at DATETIME,
     last_live_check DATETIME
 );
 

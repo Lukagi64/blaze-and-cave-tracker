@@ -128,8 +128,9 @@ app.post('/api/players/:uuid/live', (req, res) => {
     const player = db.getPlayerByUuid(req.params.uuid);
     if (!player) return res.status(404).json({ error: 'Player not found' });
 
-    const liveData = req.body;
-    db.updatePlayerLiveStatus(req.params.uuid, liveData);
+    const { is_live } = req.body;
+    if (typeof is_live !== 'boolean') return res.status(400).json({ error: 'is_live (boolean) required' });
+    db.updatePlayerLiveStatus(req.params.uuid, { is_live });
     res.json({ success: true });
 });
 
