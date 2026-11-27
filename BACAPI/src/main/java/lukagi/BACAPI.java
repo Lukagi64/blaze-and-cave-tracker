@@ -4,6 +4,7 @@ import lukagi.api.WebApiClient;
 import lukagi.command.BacapiCommand;
 import lukagi.config.PluginConfig;
 import lukagi.listener.AdvancementListener;
+import lukagi.listener.CommandListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -15,6 +16,7 @@ public final class BACAPI extends JavaPlugin {
     private PluginConfig config;
     private WebApiClient apiClient;
     private AdvancementListener advancementListener;
+    private CommandListener commandListener;
 
     @Override
     public void onEnable() {
@@ -28,7 +30,11 @@ public final class BACAPI extends JavaPlugin {
         advancementListener = new AdvancementListener(this, config, apiClient);
         getServer().getPluginManager().registerEvents(advancementListener, this);
 
-        // 4. Enregistrer la commande /bacapi pour le reload
+        // 4. Enregistrer le listener de commandes (pour détecter la fonction de révocation en mode debug)
+        commandListener = new CommandListener(this, config, apiClient);
+        getServer().getPluginManager().registerEvents(commandListener, this);
+
+        // 5. Enregistrer la commande /bacapi pour le reload
         getCommand("bacapi").setExecutor(new BacapiCommand(this));
 
         getLogger().info("§aBACAPI activé ! Écoute les advancements blazeandcave: sur " + config.apiBaseUrl);

@@ -18,6 +18,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Commande /bacapi pour gérer le plugin en jeu.
@@ -53,6 +54,9 @@ public class BacapiCommand implements CommandExecutor, TabCompleter {
             case "test":
                 return handleTest(sender, args);
 
+            case "debug":
+                return handleDebug(sender, args);
+
             default:
                 sender.sendMessage(ChatColor.RED + "Sous-commande inconnue : " + subCommand);
                 sendHelp(sender);
@@ -84,6 +88,7 @@ public class BacapiCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(ChatColor.GRAY + "  Namespace : " + ChatColor.WHITE + config.filterNamespace);
         sender.sendMessage(ChatColor.GRAY + "  Debug advancements : " + ChatColor.WHITE + (config.debugLogAdvancements ? "ON" : "OFF"));
         sender.sendMessage(ChatColor.GRAY + "  Debug errors : " + ChatColor.WHITE + (config.debugLogErrors ? "ON" : "OFF"));
+        sender.sendMessage(ChatColor.GRAY + "  Debug mode : " + ChatColor.WHITE + (config.debugMode ? ChatColor.GREEN + "ON" : ChatColor.RED + "OFF"));
 
         // Test de connectivité rapide (asynchrone, non bloquant)
         sender.sendMessage(ChatColor.GRAY + "  Test de connexion : " + ChatColor.YELLOW + "En cours...");
@@ -151,17 +156,69 @@ public class BacapiCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
+    private boolean handleDebug(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("bacapi.admin")) {
+            sender.sendMessage(ChatColor.RED + "Permission refusée : bacapi.admin requise");
+            return true;
+        }
+
+        PluginConfig config = plugin.getPluginConfig();
+
+        if (args.length < 2) {
+            // Afficher l'état actuel
+            String state = config.debugMode ? ChatColor.GREEN + "ACTIVÉ" : ChatColor.RED + "DÉSACTIVÉ";
+            sender.sendMessage(ChatColor.GOLD + "[BACAPI] Mode debug : " + state);
+            sender.sendMessage(ChatColor.GRAY + "Usage : /bacapi debug <on|off>");
+            sender.sendMessage(ChatColor.GRAY + "Quand ACTIVÉ : la commande /advancement revoke @a everything vide la table Progression");
+            return true;
+        }
+
+        String action = args[1].toLowerCase();
+        boolean newState;
+
+        if (action.equals("on") || action.equals("true") || action.equals("enable")) {
+            newState = true;
+        } else if (action.equals("off") || action.equals("false") || action.equals("disable")) {
+            newState = false;
+        } else {
+            sender.sendMessage(ChatColor.RED + "Argument invalide : " + action + " (utilisez on/off)");
+            return true;
+        }
+
+        if (config.debugMode == newState) {
+            sender.sendMessage(ChatColor.YELLOW + "[BACAPI] Mode debug déjà " + (newState ? "activé" : "désactivé"));
+            return true;
+        }
+
+        // Mettre à jour en mémoire
+        config.debugMode = newState;
+        // Sauvegarder dans config.yml
+        config.getConfig().set("debug.debug-mode", newState);
+        config.save();
+
+        String state = newState ? ChatColor.GREEN + "ACTIVÉ" : ChatColor.RED + "DÉSACTIVÉ";
+        sender.sendMessage(ChatColor.GOLD + "[BACAPI] Mode debug : " + state);
+        if (newState) {
+            sender.sendMessage(ChatColor.GRAY + "La prochaine exécution de /advancement revoke @a everything videra la table Progression");
+        }
+        return true;
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage(ChatColor.GOLD + "=== Commandes BACAPI ===");
         sender.sendMessage(ChatColor.YELLOW + "/bacapi reload" + ChatColor.GRAY + " - Recharge config.yml");
         sender.sendMessage(ChatColor.YELLOW + "/bacapi status" + ChatColor.GRAY + " - Affiche l'état et test la connexion");
         sender.sendMessage(ChatColor.YELLOW + "/bacapi test <joueur> [advancement_key]" + ChatColor.GRAY + " - Test d'envoi (admin seulement)");
+        sender.sendMessage(ChatColor.YELLOW + "/bacapi debug [on|off]" + ChatColor.GRAY + " - Active/désactive le mode debug (admin seulement)");
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("reload", "status", "test");
+            return Arrays.asList("reload", "status", "test", "debug");
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("debug")) {
+            return Arrays.asList("on", "off");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("test")) {
             // Suggestions de noms de joueurs en ligne

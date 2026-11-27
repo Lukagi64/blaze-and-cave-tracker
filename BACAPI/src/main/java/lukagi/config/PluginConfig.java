@@ -26,6 +26,7 @@ public class PluginConfig {
     public String filterNamespace;
     public boolean debugLogAdvancements;
     public boolean debugLogErrors;
+    public boolean debugMode;
 
     public PluginConfig(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -57,6 +58,7 @@ public class PluginConfig {
         filterNamespace = config.getString("filter.namespace", "blazeandcave");
         debugLogAdvancements = config.getBoolean("debug.log-advancements", true);
         debugLogErrors = config.getBoolean("debug.log-errors", true);
+        debugMode = config.getBoolean("debug.debug-mode", false);
 
         if (apiAuthToken.isEmpty()) {
             plugin.getLogger().warning("api.auth-token non configuré — les requêtes seront rejetées (401) par le site web");
@@ -76,6 +78,7 @@ public class PluginConfig {
         filterNamespace = config.getString("filter.namespace", "blazeandcave");
         debugLogAdvancements = config.getBoolean("debug.log-advancements", true);
         debugLogErrors = config.getBoolean("debug.log-errors", true);
+        debugMode = config.getBoolean("debug.debug-mode", false);
         plugin.getLogger().info("Configuration rechargée");
     }
 
@@ -88,5 +91,9 @@ public class PluginConfig {
         } catch (IOException e) {
             plugin.getLogger().severe("Impossible de sauvegarder config.yml : " + e.getMessage());
         }
+    }
+
+    public FileConfiguration getConfig() {
+        return config;
     }
 }
